@@ -1,0 +1,6 @@
+requests
+xmltodict
+gemmi
+python-dotenv
+py2neo
+pydantic
