@@ -109,6 +109,19 @@ A list of sample entries are available in the `sample/entries.txt` file. Use the
 docker compose exec cli pdbecomplexes_demo load-entries --entries sample/entries.txt
 ```
 
+Load the complex portal data using the below command.
+
+```bash
+docker compose exec cli pdbecomplexes_demo load-complex-portal-data
+```
+
+Perform the complex analysis using the below command.
+
+```bash
+docker compose exec cli pdbecomplexes_demo run-pdbe-complex-analysis
+```
+
+
 You may use the help section of CLI to find available commands. Use the below command to get the help section.
 
 ```bash
@@ -163,27 +176,27 @@ NEO4J_PASSWORD=<NEO4J PASSWORD>
 ## Features
 Below are the list of features that are available in the package. Use the `pdbecomplexes_demo --help` command to get the list of available commands.
 
-* Schema index creation
+* Schema index creation:
   This utility can be used to create the schema indexes required for the dataset. It helps in speeding up the queries.
-* Remove all nodes and relationships
+* Remove all nodes and relationships:
   This utility can be used to remove all the nodes and relationships from the database.
   >**Warning**: This utility will remove all the nodes and relationships from the database. Use it with caution.
-* Load a single PDB entry
+* Load a single PDB entry:
   This utility can be used to load a single PDB entry into the database.
-* Load a list of PDB entries
+* Load a list of PDB entries:
   This utility can be used to load a list of PDB entries into the database. The list can be a file containing a list of PDB entries or a list of PDB entries, comma separated.
 
   > There is a sample file available in the `sample` directory. You can use that file to load the PDB entries into the database.
   For eg. `pdbecomplexes_demo load-entries --entries sample/entries.txt`
 
-* Load complex portal data
+* Load complex portal data:
   This utility can be used to load the complex portal data into the database. The complex portal data is a list of complexes and their components. This is a public dataset and can be downloaded from [here](https://ftp.ebi.ac.uk/pub/databases/IntAct/current/various/complex2pdb/released/).
-* Run the complex analysis
+* Run the complex analysis:
   This utility can be used to run the complex analysis. The complex analysis will create the PDBComplex nodes and relationships to the other component nodes. It will also create the subcomplex relationships.
 
 
 So in an ideal scenario, you can use the following steps to create the dataset.
 
-Create schema indexes -> Load PDB entries -> Load complex portal data -> Run complex analysis
+`Create schema indexes` -> `Load PDB entries` -> `Load complex portal data` -> `Run complex analysis`
 
 If you are loading more entries, make sure to run the load complex data and complex analysis after to get the data updated in the database. Also it's ideal to start with a clean database.
