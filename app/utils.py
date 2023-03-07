@@ -56,45 +56,6 @@ def create_schema_indexes():
     LOGGER.info("Created schema indexes")
 
 
-def parse_entry_summary_api(entry_id: str):
-    response = requests.get(
-        f"https://www.ebi.ac.uk/pdbe/api/pdb/entry/summary/{entry_id}"
-    )
-
-    if response.status_code != 200:
-        LOGGER.error(f"Error while fetching summary data for {entry_id}")
-        return {}
-
-    data = response.json()
-    return data[entry_id][0]
-
-
-def parse_entry_molecules_api(entry_id: str):
-    response = requests.get(
-        f"https://www.ebi.ac.uk/pdbe/api/pdb/entry/molecules/{entry_id}"
-    )
-
-    if response.status_code != 200:
-        LOGGER.error(f"Error while fetching molecules data for {entry_id}")
-        return {}
-
-    data = response.json()
-    return data[entry_id]
-
-
-def parse_entry_assembly_api(entry_id: str):
-    response = requests.get(
-        f"https://www.ebi.ac.uk/pdbe/api/pdb/entry/assembly/{entry_id}"
-    )
-
-    if response.status_code != 200:
-        LOGGER.error(f"Error while fetching assembly data for {entry_id}")
-        return {}
-
-    data = response.json()
-    return data[entry_id]
-
-
 def parse_entry_cif(entry_id: str):
     LOGGER.info(f"Fetching CIF for {entry_id}")
     response = requests.get(

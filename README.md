@@ -76,6 +76,20 @@ The resulting dataset will have the following nodes and relationships.
 
 ![image](assets/full-schema.png)
 
+
+### Data sources
+Below are the data sources used to create the dataset.
+
+- PDBe updated mmCIF file
+  - eg: https://www.ebi.ac.uk/pdbe/entry-files/download/2gcv_updated.cif
+- Rfam mappings (PDBe API)
+  - eg: https://www.ebi.ac.uk/pdbe/api/nucleic_mappings/rfam/2gcv
+- PDBe assembly XML
+  - eg: https://www.ebi.ac.uk/pdbe/static/entry/download/4v6c-assembly.xml
+- UniProt entry JSON (UniProt API)
+  - eg: https://rest.uniprot.org/uniprotkb/Q14676.json
+- Complex Portal mappings as TSV files ([IntAct public FTP](https://ftp.ebi.ac.uk/pub/databases/IntAct/current/various/complex2pdb/released))
+
 ## Get started
 The below steps will help you to install the package and create the dataset.
 

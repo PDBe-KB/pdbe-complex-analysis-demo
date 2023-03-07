@@ -8,10 +8,8 @@ from app.utils import (
     get_molecule_type,
     get_polymer_type,
     parse_assembly_xml,
-    parse_entry_assembly_api,
     parse_entry_cif,
     parse_entry_rfam_mapping_api,
-    parse_entry_summary_api,
     parse_tsv,
     parse_uniprot_json,
 )
@@ -35,12 +33,6 @@ class Entry:
 
     def _prepare_cif_data(self):
         self.cif_data = parse_entry_cif(self.entry_id)
-
-    def _prepare_entry_summary_data(self):
-        self.summary_data = parse_entry_summary_api(self.entry_id)
-
-    def _prepare_assembly_summary_data(self):
-        self.assembly_summary_data = parse_entry_assembly_api(self.entry_id)
 
     def _prepare_entry_node_model(self):
         self.entry_node_model = EntryModel(
