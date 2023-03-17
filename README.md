@@ -132,7 +132,7 @@ docker compose exec cli pdbecomplexes_demo load-complex-portal-data
 Perform the complex analysis using the below command.
 
 ```bash
-docker compose exec cli pdbecomplexes_demo run-pdbe-complex-analysis
+docker compose exec cli pdbecomplexes_demo run-pdbe-complex-analysis -o ./complex_ids.csv
 ```
 
 
