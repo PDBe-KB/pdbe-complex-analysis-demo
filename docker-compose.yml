@@ -19,3 +19,4 @@ services:
       - db
     volumes:
       - ./sample:/app/sample
+      - .:/app

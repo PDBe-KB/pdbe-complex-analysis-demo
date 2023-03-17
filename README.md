@@ -111,16 +111,18 @@ This will start the Neo4J container and is available at http://localhost:7474. T
 
 Now that the containers are up and running, you can use the CLI tool to create the dataset.
 
-For eg. to create the dataset for the PDB entries `1cbs` and `3gfr`, use the following command.
-
-```bash
-docker compose exec cli pdbecomplexes_demo load-entries --entries 1cbs,3d12
-```
-
 A list of sample entries are available in the `sample/entries.txt` file. Use the below command to load the sample entries.
 
 ```bash
 docker compose exec cli pdbecomplexes_demo load-entries --entries sample/entries.txt
+```
+
+A list of PDB entries can also be passed as arguments (comma separated)
+
+For eg. to create the dataset for the PDB entries `1cbs` and `3gfr`, use the following command.
+
+```bash
+docker compose exec cli pdbecomplexes_demo load-entries --entries 1cbs,3d12
 ```
 
 Load the complex portal data using the below command.
