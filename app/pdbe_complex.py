@@ -356,7 +356,6 @@ class PDBeComplex:
         )
 
     def process_subcomplex_data(self):
-
         LOGGER.info(
             f"Processing Complex-Subcomplex relationships"
             f" - Started at {datetime.now()}"
@@ -438,7 +437,6 @@ class PDBeComplex:
         )
 
     def find_subcomplexes(self):
-
         LOGGER.info(
             f"Checking for sub complexes and making relationships"
             f" - Started at {datetime.now()}"
@@ -487,7 +485,6 @@ class PDBeComplex:
 
 
 def run_pdbe_complex(complex_subcomplex_file: str):
-
     complex = PDBeComplex(
         outcsv=complex_subcomplex_file,
     )

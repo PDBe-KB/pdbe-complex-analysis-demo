@@ -30,10 +30,12 @@ class Complex(BaseModel):
 class UniProt(BaseModel):
     ACCESSION: str
     NAME: str = None
+    DESCR: str = None
 
 
 class RfamFamily(BaseModel):
     RFAM_ACC: str
+    DESCRIPTION: str = None
 
 
 class Taxonomy(BaseModel):
