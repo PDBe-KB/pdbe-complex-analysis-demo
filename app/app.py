@@ -26,10 +26,12 @@ class Entry:
         self.assembly_entity_rels = []
         self.entry_entity_rels = None
         self.entity_uniprot_rels = []
-        self.uniprot_node_model = None
+        self.uniprot_dict = {}
+        self.uniprot_node_model = []
         self.entity_rfam_rels = []
         self.rfam_node_model = None
         self.uniprot_tax_rels = []
+        self.rfam_dict = {}
 
     def _prepare_cif_data(self):
         self.cif_data = parse_entry_cif(self.entry_id)
@@ -99,16 +101,30 @@ class Entry:
                 )
             )
 
+    def _prepare_uniprot_dict(self):
+        uniprots = set([x[2] for x in self.entity_uniprot_rels])
+        for x in uniprots:
+            self.uniprot_dict[x] = parse_uniprot_json(x)
+
     def _prepare_uniprot_node_model(self):
-        self.uniprot_node_model = [
-            UniProt(ACCESSION=x) for _, _, x in self.entity_uniprot_rels
-        ]
+        for x, data in self.uniprot_dict.items():
+            recommended_name = data["proteinDescription"].get("recommendedName")
+            self.uniprot_node_model.append(
+                UniProt(
+                    ACCESSION=x,
+                    NAME=data["uniProtkbId"],
+                    DESCR=recommended_name["fullName"]["value"]
+                    if recommended_name
+                    else None,
+                )
+            )
 
     def _prepare_entity_rfam_rels(self):
         rfam_result = parse_entry_rfam_mapping_api(self.entry_id).get("Rfam")
 
         if rfam_result:
             for accession in rfam_result:
+                self.rfam_dict[accession] = rfam_result[accession]["identifier"]
                 for mapping in rfam_result[accession]["mappings"]:
                     self.entity_rfam_rels.append(
                         (
@@ -120,21 +136,18 @@ class Entry:
 
     def _prepare_rfam_node_model(self):
         self.rfam_node_model = [
-            RfamFamily(RFAM_ACC=y) for y in set(x for _, _, x in self.entity_rfam_rels)
+            RfamFamily(RFAM_ACC=acc, DESCRIPTION=id)
+            for acc, id in self.rfam_dict.items()
         ]
 
     def _prepare_uniprot_tax_rels(self):
-        uniprots = set([x[2] for x in self.entity_uniprot_rels])
-
-        for accession in uniprots:
-            uniprot_data = parse_uniprot_json(accession)
-
-            if uniprot_data and uniprot_data.get("organism"):
+        for accession, data in self.uniprot_dict.items():
+            if data and data.get("organism"):
                 self.uniprot_tax_rels.append(
                     (
                         accession,
                         [],
-                        str(uniprot_data["organism"]["taxonId"]),
+                        str(data["organism"]["taxonId"]),
                     )
                 )
 
@@ -169,6 +182,7 @@ class Entry:
             self._prepare_assembly_node_model()
             self._prepare_assembly_entity_rels()
             self._prepare_entity_uniprot_rels()
+            self._prepare_uniprot_dict()
             self._prepare_uniprot_node_model()
             self._prepare_entity_rfam_rels()
             self._prepare_rfam_node_model()
